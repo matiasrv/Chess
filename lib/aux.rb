@@ -20,6 +20,8 @@ class Array
     (self.last.between?(a.last,b.last) || self.last.between?(b.last,a.last))
   end
 end
+WHITE = :white
+BLACK = :black
 EMPTY = ' '
 PIECE = {
   white: { king: "\u265A".cyan, queen: "\u265B".cyan, rook: "\u265C".cyan, bishop: "\u265D".cyan, knight: "\u265E".cyan, pawn: "\u265F".cyan }.freeze,
@@ -31,6 +33,10 @@ TRANS = {
   rook: [[0,1],[0,-1],[1,0],[-1,0]].freeze,
   knight: [[2,1],[2,-1],[-2,1],[-2,-1],[1,2],[-1,2],[1,-2],[-1,-2]].freeze,
   bishop: [[1,1],[-1,-1],[1,-1],[-1,1]].freeze,
-  pawn: { white: [[1,0], [2,0], [1,1], [1,-1]],
-          black: [[-1,0], [-2,0], [-1,1], [-1,-1]]}.freeze,
+  pawn: { black: [[1,0], [2,0], [1,1], [1,-1]],
+          white: [[-1,0], [-2,0], [-1,1], [-1,-1]]}.freeze,
 }.freeze
+IDX = {
+  row: {a: 0, b: 1, c: 2, d:3 ,e: 4, f: 5, g: 6, h:7},
+  column: {:"1" => 0,:"2" => 1,:"3" => 2,:"4" => 3,:"5" => 4,:"6" => 5,:"7" => 6,:"8" => 7}
+}
