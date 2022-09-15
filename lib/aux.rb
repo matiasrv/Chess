@@ -1,3 +1,5 @@
+require "yaml"
+require "fileutils"
 class String  
   def black;          "\e[30m#{self}\e[0m" end
   def white;          "\e[38m#{self}\e[0m" end
@@ -35,3 +37,24 @@ IDX = {
   row: {a: 0, b: 1, c: 2, d:3 ,e: 4, f: 5, g: 6, h:7},
   column: {:"1" => 0,:"2" => 1,:"3" => 2,:"4" => 3,:"5" => 4,:"6" => 5,:"7" => 6,:"8" => 7}
 }
+SAVE_LOCATION = "saves"
+FNAME = "saves/save.txt"
+def save_game(grid, current_player)
+  Dir.mkdir(SAVE_LOCATION) unless Dir.exist?(SAVE_LOCATION)
+  content = YAML.dump({ grid: grid , player: current_player})
+  File.open(FNAME,"w") { |file| file.puts content }
+  puts "Game saved"
+end
+
+def delete_save
+  if Dir.exist?(SAVE_LOCATION)
+    FileUtils.remove_dir(SAVE_LOCATION) 
+    puts "Save deleted"
+  else
+    puts "Nothing to delete!"  
+  end
+end
+
+def load_game
+  content = YAML.load (File.read(FNAME)) if File.exist?(FNAME)
+end

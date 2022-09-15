@@ -1,0 +1,17 @@
+run = "ruby lib/main_game.rb"
+hidden = [".bundle"]
+
+[packager]
+language = "ruby"
+
+[packager.features]
+packageSearch = true
+guessImports = true
+
+[gitHubImport]
+requiredFiles = [".replit", "replit.nix", "README.md"]
+
+[languages]
+
+[languages.ruby]
+pattern = "**/*.rb"

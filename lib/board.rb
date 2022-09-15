@@ -1,6 +1,8 @@
 require_relative 'aux'
 
 class Board
+  attr_reader :grid
+  
   def initialize
     @white_check, @black_check = false
     @king_pos = { black: [7, 4], white: [0, 4] }
@@ -21,18 +23,28 @@ class Board
     @pieces = { black: all_positions(BLACK), white: all_positions(WHITE) }
   end
 
+  def load_board(grid)
+    @grid = grid
+    @pieces = { black: all_positions(BLACK), white: all_positions(WHITE) }
+  end
+
   def draw
     char = 'H'
+    print "  "
+    1.upto(8) { |n| print " #{n} "}
+    puts ''
     @grid.reverse.each_with_index do |row, y|
       print "\n" if y != 0
       print char, ' '
-      char = (char.ord - 1).chr
       row.each_with_index do |p, x|
-        (x + y).even? ? print(p.bg_cyan) : print(p.bg_brown)
+        (x + y).even? ? print(" #{p}".bg_cyan, ' '.bg_cyan) : print(" #{p}".bg_brown, ' '.bg_brown)
       end
+      print ' ', char
+      char = (char.ord - 1).chr
     end
-    print "\n"
-    puts '  12345678', ''
+    print "\n  "
+    1.upto(8) { |n| print " #{n} "}
+    puts ''
   end
 
   def validate_play(start, finish, player)
